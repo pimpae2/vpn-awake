@@ -1,11 +1,13 @@
 {
   "manifest_version": 3,
   "name": "VPN Awake",
-  "version": "1.0.0",
+  "version": "1.11",
   "description": "Keep the configured internal URL awake while Chrome is running.",
   "permissions": [
     "alarms",
-    "storage"
+    "storage",
+    "activeTab",
+    "scripting"
   ],
   "host_permissions": [
     "http://10.21.31.9:8095/*"

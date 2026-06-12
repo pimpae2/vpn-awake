@@ -244,6 +244,18 @@ button:active {
   background: linear-gradient(180deg, #12877e 0%, var(--accent-strong) 100%);
 }
 
+#openButton {
+  border-color: #1530A8;
+  color: #ffffff;
+  background: #1530A8;
+  box-shadow: 0 10px 22px rgba(21, 48, 168, 0.2);
+}
+
+#openButton:hover {
+  border-color: #102780;
+  background: #102780;
+}
+
 .button-icon {
   width: 16px;
   height: 16px;
@@ -263,6 +275,10 @@ button:active {
 
 .icon-open {
   --icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M14 3h7v7h-2V6.4l-8.3 8.3-1.4-1.4L17.6 5H14V3ZM5 5h6v2H5v12h12v-6h2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z'/%3E%3C/svg%3E");
+}
+
+.icon-fill {
+  --icon: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='black' d='M4 4h16v2H4V4Zm0 4h10v2H4V8Zm0 4h16v2H4v-2Zm0 4h10v2H4v-2Zm13.6.2 3.8-3.8 1.4 1.4-5.2 5.2-3.2-3.2 1.4-1.4 1.8 1.8Z'/%3E%3C/svg%3E");
 }
 
 .message {

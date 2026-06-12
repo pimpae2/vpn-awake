@@ -6,6 +6,13 @@ const DEFAULT_CONFIG = {
   lastResult: null
 };
 
+const WEB_LOGIN = {
+  taxid: "0107538000665",
+  username: "siriporn",
+  pinCode: "45367500",
+  loginDelayMs: 1200
+};
+
 const enabledInput = document.querySelector("#enabledInput");
 const urlInput = document.querySelector("#urlInput");
 const intervalInput = document.querySelector("#intervalInput");
@@ -112,8 +119,40 @@ async function pingNow() {
 
 saveButton.addEventListener("click", saveConfig);
 pingButton.addEventListener("click", pingNow);
-openButton.addEventListener("click", () => {
-  chrome.tabs.create({ url: urlInput.value.trim() || DEFAULT_CONFIG.url });
+openButton.addEventListener("click", async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  if (!tab?.id) return;
+
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    func: (values, delayMs) => {
+      const taxIdEl = document.getElementById("taxid");
+      const nidEl = document.getElementById("NID");
+      const passwordEl = document.getElementById("password");
+      if (!taxIdEl || !nidEl || !passwordEl) {
+        alert("taxid / NID / password fields were not found on this page.");
+        return;
+      }
+
+      taxIdEl.value = values.taxid || "";
+      nidEl.value = values.username || "";
+      passwordEl.value = values.pinCode || "";
+
+      for (const el of [taxIdEl, nidEl, passwordEl]) {
+        el.dispatchEvent(new Event("input", { bubbles: true }));
+        el.dispatchEvent(new Event("change", { bubbles: true }));
+      }
+
+      const loginBtn = document.getElementById("login");
+      if (!loginBtn) {
+        alert("Login button with id 'login' was not found on this page.");
+        return;
+      }
+
+      setTimeout(() => loginBtn.click(), delayMs);
+    },
+    args: [WEB_LOGIN, WEB_LOGIN.loginDelayMs]
+  });
 });
 enabledInput.addEventListener("change", saveConfig);
 
